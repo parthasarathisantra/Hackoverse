@@ -4,6 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+  "vercel-build": "npm install --legacy-peer-deps && next build"
   "dev": "vite",
   "build": "vite build",
   "preview": "vite preview"
