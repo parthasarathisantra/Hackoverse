@@ -9,9 +9,7 @@ import requests
 from collections import defaultdict
 from typing import List, Dict
 
-# --------------------------------------------------------
-# FIREBASE INIT
-# --------------------------------------------------------
+#firebase
 FIREBASE_CRED_FILE = "firebase_credentials.json"
 cred = credentials.Certificate(FIREBASE_CRED_FILE)
 firebase_admin.initialize_app(cred)
@@ -22,9 +20,7 @@ API_KEY = "AIzaSyAu7EaCkPbYZ4lacxmtaSkkaX261GN3EGs"
 app = Flask(__name__)
 CORS(app)
 
-# --------------------------------------------------------
-# UTILITIES
-# --------------------------------------------------------
+# utilities
 def doc_to_obj(doc):
     d = doc.to_dict() or {}
     d["id"] = doc.id
@@ -37,9 +33,7 @@ def safe_get_json(required=[]):
             return None, jsonify({"error": f"Missing field: {key}"}), 400
     return data, None, None
 
-# --------------------------------------------------------
-# SIMILARITY ENGINE
-# --------------------------------------------------------
+# similarity
 def cosine_similarity(v1, v2):
     if not v1 or not v2: return 0
     if len(v1) != len(v2): return 0
@@ -67,16 +61,12 @@ def compute_similarity(target_vec, all_vectors, all_names, target_name, all_role
     results.sort(key=lambda x: x["match_percentage"], reverse=True)
     return results[:3]
 
-# --------------------------------------------------------
-# ROOT
-# --------------------------------------------------------
+#root/home
 @app.route("/")
 def home():
     return jsonify({"message": "Backend running successfully"}), 200
 
-# --------------------------------------------------------
-# AUTH
-# --------------------------------------------------------
+#signup
 @app.route("/signup", methods=["POST"])
 def signup():
     data, err, code = safe_get_json(required=["email", "password"])
@@ -101,7 +91,7 @@ def signup():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-
+#login
 @app.route("/login", methods=["POST"])
 def login():
     data, err, code = safe_get_json(required=["email", "password"])
@@ -123,9 +113,7 @@ def login():
 
     return jsonify({"uid": resp["localId"]}), 200
 
-# --------------------------------------------------------
-# USER PROFILE
-# --------------------------------------------------------
+# profile
 @app.route("/users/<uid>", methods=["GET"])
 def get_user(uid):
     try:
@@ -157,9 +145,7 @@ def update_user(uid):
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-# --------------------------------------------------------
-# PROJECTS
-# --------------------------------------------------------
+# projects
 @app.route("/projects", methods=["POST"])
 def create_project():
     data, err, code = safe_get_json(required=["name", "created_by"])
@@ -182,9 +168,7 @@ def get_user_projects(uid):
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-# --------------------------------------------------------
-# TASKS
-# --------------------------------------------------------
+# tasks
 @app.route("/projects/<project_id>/tasks", methods=["GET"])
 def get_tasks(project_id):
     docs = db.collection("projects").document(project_id).collection("tasks").stream()
@@ -225,9 +209,7 @@ def delete_task(project_id, task_id):
     db.collection("projects").document(project_id).collection("tasks").document(task_id).delete()
     return jsonify({"message": "Task deleted"}), 200
 
-# --------------------------------------------------------
-# CONNECTIONS
-# --------------------------------------------------------
+#collaborator connection
 @app.route("/connect/send", methods=["POST"])
 def send_connection():
     data, err, code = safe_get_json(required=["from", "to"])
@@ -266,9 +248,7 @@ def reject_request(req_id):
     })
     return jsonify({"message": "Connection rejected"}), 200
 
-# --------------------------------------------------------
-# PEER REVIEW
-# --------------------------------------------------------
+# peer review
 @app.route("/reviews", methods=["POST"])
 def submit_review():
     data, err, code = safe_get_json(required=["reviewer", "reviewee", "team_id", "scores"])
@@ -286,9 +266,7 @@ def submit_review():
     return jsonify({"review_id": ref[1].id}), 201
 
 
-# --------------------------------------------------------
-# QUIZ SYSTEM
-# --------------------------------------------------------
+# quiz system
 @app.route("/create_quiz", methods=["POST"])
 def create_quiz():
     data, err, code = safe_get_json(required=["project_id"])
@@ -372,8 +350,6 @@ def recommend_connection():
 
     return jsonify({"best_connection": best, "best_score": best_score}), 200
 
-# --------------------------------------------------------
-# RUN SERVER
-# --------------------------------------------------------
+#server
 if __name__ == "__main__":
     app.run(debug=True)
