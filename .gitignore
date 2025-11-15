@@ -1,0 +1,13 @@
+# Firebase secret key
+firebase_credentials.json
+backend/firebase_credentials.json
+
+# Environment files
+.env
+*.env
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz

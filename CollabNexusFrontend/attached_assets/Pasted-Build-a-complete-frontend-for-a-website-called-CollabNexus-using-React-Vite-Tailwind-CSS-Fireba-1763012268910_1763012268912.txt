@@ -1,0 +1,198 @@
+Build a complete frontend for a website called CollabNexus using:
+
+React
+
+Vite
+
+Tailwind CSS
+
+Firebase Auth + Firebase Firestore (web SDK)
+
+Interactive + slightly animated UI (smooth transitions, hover effects, card animations)
+
+The frontend must connect to an existing backend already built with Flask + Firebase Admin + Firestore with routes:
+
+/signup
+
+/login
+
+/projects
+
+/projects/<project_id>/tasks
+
+/projects/<project_id>/progress
+
+Real-time features should use Firestore onSnapshot().
+
+🌐 CollabNexus – Homepage Requirements
+
+Create a beautiful, modern, animated homepage with 4 main feature cards:
+
+(1) Skill Matchmaking
+
+Upload user skills
+
+Upload interests
+
+Upload project idea
+
+Button: Find Teammates
+
+Show recommended collaborators using the user’s skills
+
+(2) Project Hub
+
+Create projects
+
+Add tasks
+
+Assign tasks to team members
+
+Kanban-style task board:
+
+Not Started
+
+In Progress
+
+Completed
+
+Real-time updates using Firestore snapshot listeners
+
+(3) Dashboard
+
+Show project progress tracking
+
+Show milestone completion
+
+Show charts for:
+
+Who contributed more
+
+Who contributed less
+
+Show XP and level-up system
+
+Show task completion percentage
+
+Animated progress circle or bar
+
+(4) Peer Review System
+
+Write feedback for teammates
+
+Rate collaboration
+
+Suggest improvements
+
+Stored in a Firestore collection
+
+Simple animated card UI for reviews
+
+⭐ Milestone + Level-Up System
+
+Add this system on the homepage AND dashboard:
+
+XP rewards when tasks are completed
+
+Milestone cards
+
+Level badge
+
+XP progress bar
+
+Smooth animations (grow animation when XP increases)
+
+Example:
+
+Task completed → +10 XP
+
+Milestone completed → +50 XP
+
+Level-up when XP threshold reached
+
+🔐 Authentication Pages
+
+Generate Sign Up and Sign In pages with:
+
+Firebase Auth (Email + Password)
+
+Tailwind styling
+
+Smooth animations
+
+Redirect to Dashboard after login
+
+Save user UID into state/context
+
+📁 Project Structure Required
+src/
+ ├─ pages/
+ │   ├─ Home.jsx
+ │   ├─ Signup.jsx
+ │   ├─ Login.jsx
+ │   ├─ Dashboard.jsx
+ │   ├─ ProjectHub.jsx
+ │   ├─ SkillMatchmaking.jsx
+ │   ├─ PeerReview.jsx
+ │   ├─ TaskBoard.jsx
+ │
+ ├─ components/
+ │   ├─ Navbar.jsx
+ │   ├─ FeatureCard.jsx
+ │   ├─ TaskCard.jsx
+ │   ├─ XPBar.jsx
+ │   ├─ LevelBadge.jsx
+ │   ├─ MilestoneCard.jsx
+ │   ├─ ReviewCard.jsx
+ │   ├─ TeammateSuggestionCard.jsx
+ │
+ ├─ context/
+ │   └─ AuthContext.jsx
+ │
+ ├─ services/
+ │   ├─ firebase.js
+ │   └─ api.js
+ │
+ ├─ App.jsx
+ └─ main.jsx
+
+🎨 UI/Animation Requirements
+
+Use Tailwind utility classes
+
+Use framer-motion or simple CSS transitions
+
+Animate cards on hover
+
+Fade-in transitions while changing pages
+
+Smooth page transitions
+
+Animated progress bars
+
+Task board drag-and-drop (optional)
+
+Design should look clean, minimal, slightly futuristic.
+
+🔁 Real-Time Functionality
+
+Use Firebase Firestore directly on the frontend:
+
+onSnapshot() for taskboard updates
+
+Real-time milestone progress
+
+Real-time peer review feed
+
+🔥 What Replit AI Should Generate
+
+✔ Complete UI + Components
+✔ Fully responsive Tailwind layout
+✔ Animated homepage with 4 feature cards
+✔ Firebase authentication and session management
+✔ Project creation + task management UI
+✔ XP + level-up system UI
+✔ Firestore real-time listeners
+✔ API calls to Flask backend
+✔ Routing using React Router
+✔ Clean and modern design
